@@ -41,7 +41,7 @@ jobs:
     steps:
     - name: create redis container
       run: |
-        docker exec ${{ job.services.redis.id }} redis-cli
+        docker exec -it ${{ job.services.redis.id }} redis-cli
         pwd
         ACL SETUSER redis on  allkeys allcommands >redis123
         ACL LIST
