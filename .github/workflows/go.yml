@@ -36,9 +36,11 @@ jobs:
     steps:
     - name: create redis container
       run: |
-        docker run  -v ./.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-try -p 2002:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf    
-        docker logs krogo-try
-        pwd
+        docker exec ${{ job.services.redis.id }} redis-cli ACL SETUSER redis on  allkeys allcommands  +set  >redis123
+        docker logs
+#         docker run  -v ./.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-try -p 2002:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf    
+#         docker logs krogo-try
+#         pwd
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
