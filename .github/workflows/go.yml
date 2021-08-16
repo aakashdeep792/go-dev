@@ -44,7 +44,8 @@ jobs:
         docker exec ${{ job.services.redis.id }} redis-cli ACL SETUSER redis on  allkeys allcommands >redis123
         docker logs ${{ job.services.redis.id }}
         docker exec ${{ job.services.redis.id }} redis-cli --user redis --pass redis123
-        docker logs ${{ job.services.redis.id }}
+        docker logs ${{ job.services.redis.id }} 
+        docker exec ${{ job.services.redis.id }} redis-cli PING
 #         docker run  -v ./.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-try -p 2002:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf    
 #         docker logs krogo-try
 #         pwd
