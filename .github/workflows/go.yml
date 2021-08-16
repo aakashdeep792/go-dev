@@ -43,8 +43,7 @@ jobs:
 
     - name: Get dependencies
       run: |
-        # git config --global http.sslVerify false
-        # git config --global url."https://${{ secrets.GHUBPAT }}:x-oauth-basic@github.com/krogertechnology".insteadOf "https://github.com/krogertechnology"
+        go mod init
         go get -v -t -d ./...
 
     - name: Test
