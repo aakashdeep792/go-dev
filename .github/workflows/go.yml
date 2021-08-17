@@ -48,10 +48,10 @@ jobs:
       run: |  
         
         echo $HOME
-        docker run -v $HOME/work/go-dev/go-dev/.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-try -p 6379:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf
-        docker logs krogo-try 
-        docker exec krogo-try redis-cli --user redis --pass redis123 PING
-        docker start krogo-try
+        docker run -v $HOME/work/go-dev/go-dev/.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-redis -p 6379:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf
+        docker logs krogo-redis 
+        docker exec krogo-redis redis-cli --user redis --pass redis123 PING
+        docker start krogo-redis
 #         docker run  -v /home/runner/work/go-dev/go-dev/.github/setups/redis-config:/usr/local/etc/redis   --name krogo-try -p 6379:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf
 #         docker exec --user root ${{ job.services.redis.id }} redis-cli ACL SETUSER redis on  allkeys allcommands >redis123
 #         docker logs ${{ job.services.redis.id }}
@@ -73,7 +73,7 @@ jobs:
 
     - name: Do ping
       run: |
-        docker exec krogo-try redis-cli PING
+        docker exec krogo-redis redis-cli PING
        # go mod init
       #  go get -v -t -d ./...
 
