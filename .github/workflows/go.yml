@@ -39,7 +39,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: create redis container
+    
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+    
+    - name: create redis container  
       run: |  
         echo $HOME
         docker run --user root -v $HOME/work/go-dev/go-dev/.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-try -p 6379:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf
@@ -63,8 +67,7 @@ jobs:
         go-version: ^1.16
       id: go
 
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
+   
 
     - name: Get dependencies
       run: |
