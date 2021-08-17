@@ -42,7 +42,7 @@ jobs:
     - name: create redis container
       run: |  
         echo $HOME
-        docker run  -v $HOME/work/go-dev/go-dev/.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-try -p 6379:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf
+        docker create  -v $HOME/work/go-dev/go-dev/.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-try -p 6379:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf
         docker logs krogo-try
         docker exec krogo-try redis-cli PING
  #       docker start krogo-try
