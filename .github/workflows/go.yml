@@ -74,18 +74,18 @@ jobs:
     - name: Get dependencies
       run: |
         docker exec krogo-try redis-cli PING
-        go mod init
-        go get -v -t -d ./...
+       # go mod init
+      #  go get -v -t -d ./...
 
-    - name: Test
+#     - name: Test
      
-      run: |
-        mkdir build
-        go test ./... -v -coverprofile build/coverage.txt -coverpkg=./... -timeout 900s
-        cat build/coverage.txt | grep -v '.pb.go' > build/coverage.out
-        go tool cover -func build/coverage.out
+#       run: |
+#         mkdir build
+#         go test ./... -v -coverprofile build/coverage.txt -coverpkg=./... -timeout 900s
+#         cat build/coverage.txt | grep -v '.pb.go' > build/coverage.out
+#         go tool cover -func build/coverage.out
 
-    - uses: actions/upload-artifact@v2
-      with:
-        name: build
-        path: build/coverage.out
+#     - uses: actions/upload-artifact@v2
+#       with:
+#         name: build
+#         path: build/coverage.out
