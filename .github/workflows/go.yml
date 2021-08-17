@@ -71,11 +71,17 @@ jobs:
 
    
 
-    - name: Get dependencies
+    - name: Do ping
       run: |
         docker exec krogo-try redis-cli PING
        # go mod init
       #  go get -v -t -d ./...
+
+    - name: stop and remove the redis container
+      run: |
+        docker stop krogo-redis
+        docker rm krogo-redis
+
 
 #     - name: Test
      
