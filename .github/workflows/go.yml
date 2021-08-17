@@ -46,7 +46,7 @@ jobs:
     
     - name: create redis container  
       run: |  
-        docker exec ${{ job.services.redis.id }} redis-cli ACL SETUSER redis on  allkeys allcommands >redis123
+        docker exec --user root ${{ job.services.redis.id }} redis-cli ACL SETUSER redis on  allkeys allcommands >redis123
         docker logs ${{ job.services.redis.id }}
         docker exec ${{ job.services.redis.id }} redis-cli --user redis --pass redis123
         docker logs ${{ job.services.redis.id }} 
