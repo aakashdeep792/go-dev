@@ -46,19 +46,20 @@ jobs:
     
     - name: create redis container  
       run: |  
-        echo $HOME
-        docker run --user root -v $HOME/work/go-dev/go-dev/.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-try -p 6379:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf
-        docker logs krogo-try 
-        docker exec krogo-try redis-cli --user redis --pass redis123
+        docker exec ${{ job.services.redis.id }} redis-cli ACL SETUSER redis on  allkeys allcommands >redis123
+        docker logs ${{ job.services.redis.id }}
+        docker exec ${{ job.services.redis.id }} redis-cli --user redis --pass redis123
+        docker logs ${{ job.services.redis.id }} 
+        docker exec ${{ job.services.redis.id }} redis-cli PING
+#         echo $HOME
+#         docker run --user root -v $HOME/work/go-dev/go-dev/.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-try -p 6379:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf
+#         docker logs krogo-try 
+#         docker exec krogo-try redis-cli --user redis --pass redis123
  #       docker start krogo-try
 #         docker run  -v /home/runner/work/go-dev/go-dev/.github/setups/redis-config:/usr/local/etc/redis   --name krogo-try -p 6379:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf
        
 #       docker exec krogo-try redis-cli PING
-#         docker exec ${{ job.services.redis.id }} redis-cli ACL SETUSER redis on  allkeys allcommands >redis123
-#         docker logs ${{ job.services.redis.id }}
-#         docker exec ${{ job.services.redis.id }} redis-cli --user redis --pass redis123
-#         docker logs ${{ job.services.redis.id }} 
-#         docker exec ${{ job.services.redis.id }} redis-cli PING
+        
 #         docker run  -v ./.github/setups/redis-conf:/usr/local/etc/redis   --name krogo-try -p 2002:6379 --health-cmd "redis-cli ping" --health-interval 10s  --health-timeout 5s  --health-retries 5 -d redis:latest  redis-server /usr/local/etc/redis/redis.conf    
 #         docker logs krogo-try
 #         pwd
