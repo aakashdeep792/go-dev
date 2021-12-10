@@ -1,6 +1,9 @@
 name: Load_Test_8000
 
 on:
+  pull_request:
+    branches: [main test-workflow-dependency]
+  
   workflow_run:
     workflows: [Load_Test_5000]
     branches: [main test-workflow-dependency]
