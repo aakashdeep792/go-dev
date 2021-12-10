@@ -3,7 +3,7 @@ name: Release
 on:
   workflow_run:
     workflows: ["Run Tests"]
-    branches: [main test-workflow-dependency]
+    branches: [test-workflow-dependency]
     types: 
       - completed
 
