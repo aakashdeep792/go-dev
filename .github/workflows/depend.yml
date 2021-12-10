@@ -3,7 +3,7 @@ name: Load_Test_8000
 on:
   workflow_run:
     workflows: ["Load_Test_5000"]
-    branches: [main]
+    branches: [test-workflow-dependency]
     types: 
       - completed
       
