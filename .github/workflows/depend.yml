@@ -1,11 +1,14 @@
 name: Load_Test_8000
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-    
+  workflow_run:
+    workflows: ["Load_Test_5000"]
+    branches: [main]
+    types: 
+      - completed
+      
+      
+      
 #   workflow_run:
 #     workflows: [Load_Test_5000]
 #     branches: [main test-workflow-dependency]
@@ -20,9 +23,10 @@ on:
 jobs:
   on-success:
     name: Load test
-    runs-on:  [self-hosted, kubernetes,extra-resources]
+    runs-on:  [self-hosted, kubernetes, extra-resources]
 
-#     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - name: Setup Java JDK 11
       uses: actions/setup-java@v1
