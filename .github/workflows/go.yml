@@ -2,9 +2,9 @@ name: Run Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ test-workflow-dependency ]
   pull_request:
-    branches: [ main ]
+    branches: [ test-workflow-dependency ]
 
 jobs:
   test:
