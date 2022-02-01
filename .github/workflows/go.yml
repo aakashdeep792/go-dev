@@ -48,7 +48,7 @@ jobs:
       - name: Runs a single command
         id: docker
         run: |
-          echo "::set-output name=kafkaHome::$(docker exec ${{ job.services.kafka.id }} env | grep KAFKA_HOME | cut -d'=' -f2)
+          echo "::set-output name=kafkaHome::$(docker exec ${{ job.services.kafka.id }} env | grep KAFKA_HOME | cut -d'=' -f2)"
           echo $KAFKA_HOME
           
       # Runs a set of commands using the runners shell
