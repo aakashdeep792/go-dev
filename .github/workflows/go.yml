@@ -44,17 +44,24 @@ jobs:
         run: sleep 10s
         shell: bash
         
-      # Runs a single command using the runners shell
-      - name: Runs a single command
-        id: docker
+      - name: Create kafka topic with multiple partitions
+        id: kafkaContainer
         run: |
           echo "::set-output name=kafkaHome::$(docker exec ${{ job.services.kafka.id }} env | grep KAFKA_HOME | cut -d'=' -f2)"
-          echo $KAFKA_HOME
+          docker exec ${{ job.services.kafka.id }} ${{ steps.kafkaContainer.outputs.kafkaHome }}/bin/kafka-topics.sh --create --zookeeper localhost  --partitions 12 --replication-factor 1  --topic multiPartition
+
+        
+#       # Runs a single command using the runners shell
+#       - name: Runs a single command
+#         id: docker
+#         run: |
+#           echo "::set-output name=kafkaHome::$(docker exec ${{ job.services.kafka.id }} env | grep KAFKA_HOME | cut -d'=' -f2)"
+#           echo $KAFKA_HOME
           
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo ${{ steps.docker.outputs.kafkaHome }}
-          docker exec ${{ job.services.kafka.id }} /opt/kafka_2.12-2.3.0/bin/kafka-topics.sh --create --zookeeper localhost  --partitions 3 --replication-factor 1  --topic abcc
-          echo Add other actions to build,
-          echo test, and deploy your project.
+#       # Runs a set of commands using the runners shell
+#       - name: Run a multi-line script
+#         run: |
+#           echo ${{ steps.docker.outputs.kafkaHome }}
+#           docker exec ${{ job.services.kafka.id }} /opt/kafka_2.12-2.3.0/bin/kafka-topics.sh --create --zookeeper localhost  --partitions 3 --replication-factor 1  --topic abcc
+#           echo Add other actions to build,
+#           echo test, and deploy your project.
