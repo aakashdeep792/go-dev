@@ -48,6 +48,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          docker exec ${{ job.services.kafka.id }} /opt/kafka_2.12-2.3.0/bin/kafka-topics.sh --create --zookeeper localhost:2009  --partitions 3 --replication-factor 1  --topic abcc
+          docker exec ${{ job.services.kafka.id }} /opt/kafka_2.12-2.3.0/bin/kafka-topics.sh --create --zookeeper localhost  --partitions 3 --replication-factor 1  --topic abcc
           echo Add other actions to build,
           echo test, and deploy your project.
