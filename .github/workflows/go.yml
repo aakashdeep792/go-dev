@@ -42,9 +42,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: Runs a single command
         run: |
-          KAFKA_HOME=docker exec krogo-kafka env | grep KAFKA_HOME | cut -d'=' -f2
+          KAFKA_HOME=docker exec ${{ job.services.kafka.id }} env | grep KAFKA_HOME | cut -d'=' -f2
           echo $KAFKA_HOME
-          docker exec ${{ job.services.cassandra.id }} $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2009  --partitions 3 --replication-factor 1  --topic abcc
+          docker exec ${{ job.services.kafka.id }} $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2009  --partitions 3 --replication-factor 1  --topic abcc
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
