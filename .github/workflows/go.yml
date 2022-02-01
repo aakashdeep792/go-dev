@@ -44,10 +44,13 @@ jobs:
         run: sleep 10s
         shell: bash
         
-      - name: Create kafka topic with multiple partitions
+      - name: get KAFKA HOME env
         id: kafkaContainer
         run: |
           echo "::set-output name=kafkaHome::$(docker exec ${{ job.services.kafka.id }} env | grep KAFKA_HOME | cut -d'=' -f2)"
+
+      - name: Create kafka topic with multiple partitions
+        run: |
           docker exec ${{ job.services.kafka.id }} ${{ steps.kafkaContainer.outputs.kafkaHome }}/bin/kafka-topics.sh --create --zookeeper localhost  --partitions 12 --replication-factor 1  --topic multiPartition
 
         
